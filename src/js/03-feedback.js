@@ -4,13 +4,12 @@ const formEl = document.querySelector('.feedback-form');
 const trotledOnInputSave = throttle(onInputSave, 500);
 
 document.addEventListener('DOMContentLoaded', onLoadForm);
-formEl.addEventListener('input', trotledOnInputSave);
+document.addEventListener('input', trotledOnInputSave);
 formEl.addEventListener('submit', onFormSubmit);
 
 function onLoadForm() {
     if (localStorage.getItem('feedback-form-state') !== null) {
         let savedInfo = JSON.parse(localStorage.getItem('feedback-form-state'));
-        console.log(formEl.elements);
         formEl.elements.email.value = savedInfo.email;
         formEl.elements.message.value = savedInfo.text;
         return
@@ -18,15 +17,13 @@ function onLoadForm() {
     return
 };
 
-function onInputSave(el) {
+function onInputSave() {
     const feedbackFormState = {
         email: '',
         text: '',
     };
-    // console.log(el.currentTarget.elements.email.value);
-    // console.log('Все ОК!');
-    feedbackFormState.email = el.currentTarget.elements.email.value;
-    feedbackFormState.text = el.currentTarget.elements.message.value;
+    feedbackFormState.email = formEl.elements.email.value;
+    feedbackFormState.text = formEl.elements.message.value;
     localStorage.setItem('feedback-form-state', JSON.stringify(feedbackFormState));
 };
 
