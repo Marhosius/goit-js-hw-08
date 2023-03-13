@@ -13,7 +13,7 @@ function onTimeUpdate() {
     player.getCurrentTime().then(function (seconds) {
         localStorage.setItem('videoplayer-current-time', seconds);
     }).catch(function (error) {
-        localStorage.setItem('videoplayer-current-time', 0);
+        console.log(error);
     });
 }
 const trotledonTimeUpdate = throttle(onTimeUpdate, 1000);
